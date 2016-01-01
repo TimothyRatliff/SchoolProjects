@@ -1,0 +1,108 @@
+package vector3ddemo;
+
+
+/**
+ * This program computes and displays vectors with user inputted data.
+ * CSC 1350 Lab # 9
+ * @author tratli2
+ * @since 11/9/15
+ */
+
+public class Vector3D {
+    
+
+    private double x;
+    /**
+     * The x component of the vector.
+     */
+    
+    private double y;
+    /**
+     * The y component of the vector.
+     */
+    
+    private double z;
+    /**
+     * The z component of the vector.
+     */
+    
+    public Vector3D()
+    {
+        x=0;
+        y=0;
+        z=0;
+    }
+    
+    public Vector3D(double xVal, double yVal, double zVal){
+        x = xVal;
+        y = yVal;
+        z = zVal;
+    }
+    
+    public Vector3D add(Vector3D v){
+        return new Vector3D(x+v.x, y+v.y, z+v.z);
+    }
+    
+    public Vector3D cross(Vector3D v){
+        return new Vector3D((y*v.z)-(v.y*z), (v.x*z)-(x*v.z), (x*v.y)-(v.x*y));
+    }
+    
+    public double dot(Vector3D v){
+        return ((x*v.x)+(y*v.y)+(z*v.z));
+    }
+    
+    public boolean equals(Vector3D v){
+        if(x==v.x && y==v.y && z==v.z)
+            return true;
+        else
+            return false;
+    }
+    
+    public double getX(){
+        return x;
+    }
+    
+    public double getY(){
+        return y;
+    }
+    
+    public double getZ(){
+        return z;
+    }
+    
+    public double length(){
+        return Math.sqrt((x*x)+(y*y)+(z*z));
+    }
+    
+    /**
+     * Changes the 3D vector to one with the specified components
+     * @param newX is the new value of the x for the vector
+     * @param newY is the new value of the y for the vector
+     * @param newZ is the new value of the z for the vector
+     */
+    public void setVector(double newX, double newY, double newZ){
+    x = newX;
+    y = newY;
+    z = newZ;
+}
+    public Vector3D subtract(Vector3D v){
+        return new Vector3D((x-v.x), (y-v.y), (z-v.z));
+    }
+    
+    public java.lang.String toString(){
+        return String.format("<%.6f, %.6f, %.6f>", x, y, z);
+    }
+    
+    public Vector3D unit(){
+        double legnth = Math.sqrt((x*x)+(y*y)+(z*z));
+        if (legnth == 0)
+            throw new IllegalArgumentException("Error: The legnth is 0.");
+        return new Vector3D((x/legnth), (y/legnth), (z/legnth));
+        
+    }
+    
+    
+    
+}
+
+     
