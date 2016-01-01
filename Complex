@@ -1,0 +1,147 @@
+package complexdemo;
+/**
+ * This program calculates several different functions using complex numbers.
+ * CSC 1350 Project # 5
+ * @author TimothyRatliff
+ * @since 11/18/15
+ */
+public class Complex {
+    
+    private double imag;
+    /**
+     * The imaginary part.
+     */
+    
+    private double real;
+    /**
+     * The real part.
+     */
+    
+    public Complex(){
+        real=0;
+        imag=0;
+    }
+    
+    public Complex(Complex z){
+        imag = z.imag;
+        real = z.real;
+    }
+    
+    public Complex(double realval){
+        imag = 0;
+        real = realval;
+    }
+    
+    /**
+     * Creates a complex number with the specified parameters.
+     * @param realval is the new real value
+     * @param imagval is the new imaginary value
+     */
+    public Complex(double realval, double imagval){
+        imag = imagval;
+        real = realval;
+    }
+    
+    /**
+     * Computes the sum of this complex number and the specified complex number
+     * @param z The complex number
+     * @return The rum of the complex numbers
+     */
+    public Complex add(Complex z){
+        return new Complex(real+z.real, imag+z.imag);
+    }
+    
+    /**
+     * Gives the conjugate of this complex number
+     * @return The conjugate of the given complex number
+     */
+    public Complex conjugate(){
+        return new Complex(real, -imag);
+    }
+    
+    /**
+     * Determines whether this complex number is equal to the specified complex number
+     * @param z The complex number
+     * @return True or False, depending on whether the two complex numbers are equal or not
+     */
+    public boolean equals(Complex z){
+        if(real==z.real && imag==z.imag){
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    /**
+     * Gives the imaginary part of this complex number.
+     * @return The imaginary part of the complex number
+     */
+    public double getImag(){
+        return imag;
+    }
+    
+    /**
+     * Gives the real part of this complex number
+     * @return The real part of the complex number
+     */
+    public double getReal(){
+        return real;
+    }
+    
+     /**
+     * Computes the inverse of this complex number
+     * @return the inverse of this complex number
+     */
+    public Complex inverse()
+    {
+        if(real==0&&imag==0)
+            throw new IllegalArgumentException("The real and imaginary number are both zero, and a number cannot be divided by zero.");
+        return new Complex((real/Math.pow(modulus(),2)),-(imag/Math.pow(modulus(),2)));
+    }
+    
+    /**
+     * Computes the modulus of this complex number
+     * @return the modulus of this complex number
+     */
+    public double modulus()
+    {
+        return Math.sqrt(real*real+imag*imag);
+    }
+    
+    /**
+     * Computes the product of this complex number and the specified complex number.
+     * @param z The complex number
+     * @return The product of the two complex numbers
+     */
+    public Complex multiply(Complex z){
+        double re = (real * z.real) - (imag * z.imag);
+        double im = (real * z.imag) + (imag * z.real);
+        return new Complex(re, im);
+    }
+    
+    /**
+     * Computes the difference of this complex number and the specified complex number
+     * @param z The complex number
+     * @return The difference of the two complex numbers
+     */
+    public Complex subtract(Complex z){
+        double re = real - z.real;
+        double im = imag- z.imag;
+        return new Complex(re, im);
+    }
+    
+    /**
+     * Gives a string representation of this complex number in the specified format:
+     * @return The given complex number in the specified string format
+     */
+    public java.lang.String toString(){
+        if(imag == 0)
+            return String.format("%.6f", real);
+        if(real == 0)
+            return String.format("%.6f", imag);
+        if(imag == 1)
+            return String.format("%.6f+i", real);
+        return String.format("%.6f%+.6fi", real, imag);
+    }
+    
+}
