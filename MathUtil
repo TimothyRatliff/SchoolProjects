@@ -1,0 +1,88 @@
+package mathutildemo;
+/**
+ * This program computes a number of different math functions given user input.
+ * CSC 1350 Lab # 10
+ * @author tratli2
+ * @since 11/16/15
+ */
+public class MathUtil {
+    /**
+     * 
+     * @param pnum is the perfect number 
+     * @return the sum
+     */
+    public static boolean isPerfect(int pnum){
+        int i = 1;
+        int sum = 0;
+        
+        for(i=1;i<pnum;i++){
+            if(pnum%i==0){
+                
+                sum += i;
+                
+            }
+            
+        }
+        return pnum == sum;    
+    }
+    /**
+     * 
+     * @param first is the first number entered
+     * @param second is the second number entered
+     * @param third is the third number entered
+     * @return the median number
+     */
+    public static int medianOfThree(int first, int second, int third){
+        if(first<second){
+            if(first>third){
+                return first;
+            }
+            else if(second<third){
+                return second;
+            }
+            }
+        else{
+            if(first<third){
+                return first;
+            }
+            else if(second>=third)
+                return second;
+        }
+        return third;
+    }
+    
+    /**
+     * 
+     * @param upperLimit the upper limit entered by the user
+     * @return the sequence of odd numbers
+     */
+    public static int[] oddSequence(int upperLimit){
+        int[] oddSequence = new int[(upperLimit+1)/2];
+        int i = 0;
+        int n = 0;
+        for(i=1;i<upperLimit+1;i+=2){
+            oddSequence[n]=i;
+            n++;
+        }
+        
+        
+        return oddSequence;
+    }
+    /**
+     * 
+     * @param term base number
+     * @param j number of terms in the sequence
+     * @return 
+     */
+    public static double sumInversePowers(double term, double j){
+        int i;
+        double sum = 1;
+        double denom = 1;
+        for(i=1;i<j;i++){
+        denom *= term;    
+        sum += 1/denom;     
+            
+        }
+        return sum;
+    }
+}
