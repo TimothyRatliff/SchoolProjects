@@ -1,0 +1,80 @@
+package quadraticsolver;
+
+/**
+ * This program prompts the user for the coefficient of the quadratic term, linear term, and the value of the constant term. It then outputs the equation and solution.
+ * CSC 1350 Project # 2
+ * @author TimothyRatliff
+ * @sincs 092215
+ */
+
+import java.util.Scanner;
+public class QuadraticSolver {
+
+
+    public static void main(String[] args) {
+        double qterm;
+        double lterm;
+        double cterm;
+        
+        Scanner cort = new Scanner(System.in);
+        System.out.printf("Enter the coefficient of the quadratic term--> ");
+        qterm = cort.nextDouble();
+        System.out.printf("Enter the coefficient of the linear term--> ");
+        lterm = cort.nextDouble();
+        System.out.printf("Enter the constant term--> ");
+        cterm = cort.nextDouble();
+        
+        double disc;
+        double qterm2 = qterm*2;
+        double solu1;
+        double solu2a;
+        double solu2b;
+        double solu3a;
+        double solu3b;
+        double solu3c;
+        double solu3d;
+        
+        
+        
+        disc = ((Math.pow(lterm,2))-(4*qterm*cterm));
+        solu1 = (-lterm)/(2*qterm);
+        solu2a = ((-lterm)+(Math.sqrt(disc)))/(2*qterm);
+        solu2b = ((-lterm)-(Math.sqrt(disc)))/(2*qterm);
+        solu3a = ((-lterm)/(2*qterm));
+        solu3b = ((Math.abs((Math.sqrt(Math.abs(disc)))/(2*qterm))));
+        solu3c = ((-lterm)/(2*qterm));
+        solu3d = -(Math.abs(((Math.sqrt(Math.abs(disc)))/(2*qterm))));
+        
+        System.out.println();
+        
+        
+        if(disc < 0)
+        {
+            System.out.printf("Equation: %.5fx^2%+.5fx%+.5f = 0.00000", qterm, lterm, cterm );
+            System.out.println();
+            System.out.printf("Solution: x={%.5f%+.5fi, %.5f%+.5fi}.", solu3a, solu3b, solu3c, solu3d);
+        }
+        else if(Double.isNaN(solu1) || Double.isNaN(solu2a) || Double.isNaN(solu2b) || Double.isNaN(solu3a) || Double.isNaN(solu3b))
+        {
+            System.out.println("The equation must not have a non-zero quadratic term.");
+        }
+        else if(disc == 0)
+        {
+            System.out.printf("Equation: %.5fx^2%+.5fx%+.5f = 0.00000", qterm, lterm, cterm );
+            System.out.println();
+            System.out.printf("Solution: x={%+.5f}.", solu1);
+        }
+        else if(disc > 0)
+        {            
+            System.out.printf("Equation: %.5fx^2%+.5fx%+.5f = 0.00000", qterm, lterm, cterm );
+            System.out.println();
+            System.out.printf("Solution: x={%+.5f, %+.5f}.", solu2a, solu2b);
+        }
+        
+                
+        
+                
+                
+    }
+    
+}
