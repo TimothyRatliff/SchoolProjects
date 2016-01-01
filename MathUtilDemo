@@ -1,0 +1,48 @@
+package mathutildemo;
+
+/**
+ * This program computes a number of different math functions given user input.
+ * CSC 1350 Lab # 10
+ * @author tratli2
+ * @since 11/16/15
+ */
+import java.util.Arrays;
+import java.util.Scanner;
+public class MathUtilDemo {
+
+    public static void main(String[] args) {
+        Scanner cort = new Scanner(System.in);
+        System.out.print("Enter an integer to determine whether it is perfect -> ");
+        int pnum = cort.nextInt();
+        if(MathUtil.isPerfect(pnum)==true){
+            System.out.println(""+pnum+" is a perfect number.");
+        }
+        else
+            System.out.println(""+pnum+" is a not perfect number.");
+        System.out.println();
+        
+        
+        
+        System.out.print("Enter three integers to compute their median -> ");
+        int first = cort.nextInt();
+        int second = cort.nextInt();
+        int third = cort.nextInt();
+        System.out.printf("The median of %d, %d and %d is %d.%n",first,second,third,MathUtil.medianOfThree(first,second,third));
+        System.out.println();
+        
+        
+        
+        System.out.print("Enter the upper limit on the positive odd sequence ->");
+        int upperLimit = cort.nextInt();
+        System.out.printf("The positive odd sequence is %s.%n", Arrays.toString(MathUtil.oddSequence(upperLimit)));
+        System.out.println();
+        
+        System.out.print("Enter the base and number of terms in the invers power series -> ");
+        double base = cort.nextDouble();
+        double term = cort.nextDouble();
+        System.out.printf("The sum of the invers powers of %.7f from 0 to %.0f is %.6f.",base,term-1,MathUtil.sumInversePowers(base, term));
+        
+        
+    }
+    
+}
