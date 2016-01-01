@@ -1,0 +1,226 @@
+package magicsquaredemo;
+
+/**
+ * This program generates and tests magic squares from a file and uses a menu-based interface. 
+ * CSC 1350 Project # 4
+ * @author TimothyRatlif
+ * @since 10/21/15
+ */
+
+import java.util.Scanner;
+import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+public class MagicSquareDemo
+{
+   public static void main(String[] args) 
+   {
+      Scanner keyIn = new Scanner(System.in); 
+      String option; 
+      do
+      {
+         System.out.println();		  
+         System.out.println("             MAGIC SQUARE APPLICATION             ");
+         System.out.println("==================================================");
+         System.out.println("Generate a Magic Square........................[1]");
+         System.out.println("Test for a Magic Square........................[2]");
+         System.out.println("Quit the Program...............................[0]");
+         System.out.println();
+         System.out.print("Select an option -> ");
+         option = keyIn.next(); 
+         System.out.println(); 
+            
+         switch(option)
+         {
+            case "1": 
+               try
+               {
+                  
+                  Scanner cort = new Scanner(System.in);
+                  System.out.print("Enter the dimension of the magic square -> ");
+                  int N = cort.nextInt();
+                  if(N % 2 == 0)
+                    {
+                        System.out.println("The program can only generate a magic square\n" +
+                        "whose dimension is a positive odd number.");
+                    }
+                  else{
+                    System.out.print("Enter the name of the output file -> ");
+                        String outfilename = cort.next();
+                    PrintWriter fileout = new PrintWriter(new File(outfilename));
+                    System.out.println();
+                    fileout.println();
+                    int[][] magic = new int[N][N];
+
+                        int row = N-1;
+                        int col = N/2;
+                        magic[row][col] = 1;
+
+                        for (int i = 2; i <= N*N; i++) {
+                            if (magic[(row + 1) % N][(col + 1) % N] == 0) {
+                            row = (row + 1) % N;
+                            col = (col + 1) % N;
+                            }
+                        else {
+                        row = (row - 1 + N) % N;
+                        
+                            }
+                            magic[row][col] = i;
+                            }
+
+                    
+                    for (int i = 0; i < N; i++) {
+                        for (int j = 0; j < N; j++) {
+                            if (magic[i][j] < 10){
+                                System.out.print(magic[i][j]);
+                                System.out.print("   ");
+                                fileout.print(magic[i][j]);
+                                fileout.print("   ");
+                            }   
+                            else if (magic[i][j] < 100){  
+                                System.out.print(magic[i][j]);
+                                System.out.print("  ");
+                                fileout.print(magic[i][j]);
+                                fileout.print("  ");
+                            }
+                            
+                                                    }   
+                            System.out.println();
+                            fileout.println();
+                                                }                           
+                    System.out.println();
+                    System.out.println("A "+N+" X "+N+" Magic Square");
+                    fileout.close();
+                  }		   
+               }
+               catch(IOException e)
+               {
+                  System.out.println(e);
+               }
+               break;                    
+            case "2": 
+               try
+               {
+                  Scanner cort = new Scanner(System.in);
+                  System.out.print("Enter the name of the input file -> ");
+                  String infilename = cort.next();
+                  Scanner filein = new Scanner(new File(infilename));
+                  ArrayList<Integer> magic = new ArrayList<>();
+                    while(filein.hasNext()){
+                        if(filein.hasNextInt())
+                            magic.add(filein.nextInt());
+                        else
+                            filein.next();
+                    }
+                    
+                                 
+                    System.out.println();
+                    
+                    
+                    
+                    
+                    
+                    int n = (int) Math.round(Math.sqrt(magic.size()));
+                  int i, j;
+                 
+                  for(i = 0; i < n; i++)
+                    {
+                        for(j = 0; j < n; j++)
+                        {
+                            System.out.print(magic.get(j + n*i) + "\t");
+                        }
+                        System.out.println();
+                    }
+                  System.out.println();
+                 
+                  if(n * n != magic.size())
+                  {
+                      System.out.println("Not a magic square.");
+                      break;
+                  }
+                   
+                  for(i = 1; i <= magic.size(); i++)
+                  {
+                      if(!magic.contains((Integer) i))
+                      {
+                          System.out.println("Not a magic square.");
+                          break;
+                      }
+                  }
+                 
+                    int rowSums[] = new int[n];
+                    int colSums[] = new int[n];
+                    int sumDiagMajor = 0;
+                    int sumDiagMinor = 0;
+                    int row, col;
+                   
+                    for(i = 0; i < magic.size(); i++)
+                    {
+                        row = i / n;
+                        col = i % n;
+                        rowSums[row] += magic.get(i);
+                        colSums[col] += magic.get(i);
+                       
+                        if(row == col)
+                            sumDiagMajor += magic.get(i);
+                       
+                        if(row + col == n - 1)
+                            sumDiagMinor += magic.get(i);
+                    }
+                   
+                   if(sumDiagMajor == sumDiagMinor)
+                   {
+                       int sum = sumDiagMajor;
+                       boolean isMagic = true;
+                       
+                       for(i = 0; i < n; i++)
+                       {
+                           if(rowSums[i] != sum)
+                           {
+                               isMagic = false;
+                               break;
+                           }
+                           else{}
+                         
+                           if( colSums[i] != sum)
+                           {
+                               isMagic = false;
+                               break;
+                           }
+                           else{}
+                       }
+                       
+                       if(isMagic)
+                       {
+                           System.out.println("A " + n + " x " + n + " magic square.");
+                       }
+                       else
+                       {
+                           System.out.println("Not a magic square.");
+                       }
+                   }
+                   
+                   else
+                   {
+                       System.out.println("Not a magic square.");
+                   }
+                                   
+
+                    
+                    System.out.println();
+               }
+               catch(IOException e)
+               {
+                  System.out.println(e);
+               }
+               break;    
+            case "0": 
+               break;    
+            default: System.out.println("Invalid choice...please select a valid menu option.");
+         }
+      } 
+      while (option.compareTo("0") != 0); 
+   } 
+}
